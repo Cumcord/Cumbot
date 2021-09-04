@@ -1,0 +1,25 @@
+{
+  "name": "cumbot",
+  "version": "1.0.0",
+  "description": "Cumcord's Discord bot.",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Beefers/cumbot.git"
+  },
+  "keywords": [
+    "discord",
+    "cumcord"
+  ],
+  "author": "Beef",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Beefers/cumbot/issues"
+  },
+  "homepage": "https://github.com/Beefers/cumbot#readme",
+  "dependencies": {
+    "beautify": "^0.0.8",
+    "chalk": "^4.1.2",
+    "discord.js": "^13.1.0"
+  }
+}
