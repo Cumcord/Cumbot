@@ -14,7 +14,7 @@ async function init(client) {
         included = message.content.substr(included, "cumcord".length);
 
         if(/cumCord/g.test(included) === false) {
-            message.reply('There is no lowercase C at the start. \"cumCord\"');
+            message.reply('There is no lowercase C at the start. \"cumCord\".');
         }
     })
 }
