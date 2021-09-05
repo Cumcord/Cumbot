@@ -11,10 +11,10 @@ async function init(client) {
 
         if (message.content.includes('cumcord')) included = message.content.indexOf('cumcord'); else return;
 
-        included = message.content.substr(included, "cumcord".length)
+        included = message.content.substr(included, "cumcord".length);
 
         if(/cumCord/g.test(included) === false) {
-            message.delete()
+            message.reply('There is no lowercase C at the start. \"cumCord\"');
         }
     })
 }

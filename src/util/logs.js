@@ -8,9 +8,9 @@ module.exports = {
 
     //* warnLog
     //? A console.warn wrapper for logging warnings, making them distinguishable.
-    warnLog: async function(content) { console.log(chalk.magenta('Warn') + chalk.grey(' | ') +  chalk.white(content)) },
+    warnLog: async function(content) { console.warn(chalk.magenta('Warn') + chalk.grey('   | ') +  chalk.white(content)) },
 
     //* errorLog
     //? A console.error wrapper used for logging any errors, and making it easily visible.
-    errorLog: async function(content) { console.error(chalk.red('Error') + chalk.grey(' | ') +  chalk.white(content)) },
+    errorLog: async function(content) { console.error(chalk.red('Error') + chalk.grey('  | ') +  chalk.white(content)) },
 }

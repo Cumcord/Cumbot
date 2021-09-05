@@ -25,6 +25,7 @@ client.once('ready', async ready => {
     // Initialise interaction handler
     await interactionHandler.init(client);
 
+    // Initialise message handler
     await messageHandler.init(client)
 
     // Set activity based on config file

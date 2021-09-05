@@ -2,8 +2,8 @@ const { MessageEmbed } = require('discord.js')
 const beautify = require("beautify");
 
 module.exports = {
-    name: 'eval',
-    description: 'Runs code as JS. Only available to developers.',
+    name: 'oscillationindaclub',
+    description: 'Oscillates code in da club.',
     category: 'developer',
     options: [
         {
@@ -16,12 +16,8 @@ module.exports = {
     execute: async ( interaction ) => {
         const client = interaction.client
         if (interaction) {
-            if (!client.config.users.admins.includes(interaction.user.id)) {
-                const embed = new MessageEmbed()
-                .setColor("RED")
-                .setTitle(":x: Error")
-                .setDescription("You need to be \`" + client.users.cache.get(client.config.users.owner.id).username + "#" + client.users.cache.get(client.config.users.owner.id).discriminator + "\` to run this command.")
-                return await interaction.editReply({ embeds: [embed] });
+            if (!client.config.users.superUsers.includes(interaction.user.id)) {
+                return await interaction.editReply({ content: 'https://youtu.be/2CQRFYHt-yA' });
             }
         }
 

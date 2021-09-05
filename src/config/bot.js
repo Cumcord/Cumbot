@@ -19,8 +19,8 @@ module.exports = {
     users: {
         //? SuperUsers
         //* Every user here has access to any permission-locked commands.
-        superusers: {
-            id: '257109471589957632',
-        },
+        superUsers: [
+            '257109471589957632',
+        ],
     },
 }
