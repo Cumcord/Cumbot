@@ -1,0 +1,23 @@
+{
+  "name": "cumbot",
+  "version": "1.0.0",
+  "description": "Cumcord's Discord bot.",
+  "main": "src/index.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cumcord/Cumbot.git"
+  },
+  "author": "Beef",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Cumcord/Cumbot/issues"
+  },
+  "homepage": "https://github.com/Cumcord/Cumbot#readme",
+  "dependencies": {
+    "discord.js": "^13.1.0",
+    "typescript": "^4.4.2"
+  },
+  "devDependencies": {
+    "ts-node": "^10.2.1"
+  }
+}
