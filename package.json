@@ -17,9 +17,18 @@
     "url": "https://github.com/Beefers/cumbot/issues"
   },
   "homepage": "https://github.com/Beefers/cumbot#readme",
+  "scripts": {
+    "watch": "tsc-watch --onSuccess \"node . dev\""
+  },
   "dependencies": {
     "beautify": "^0.0.8",
     "chalk": "^4.1.2",
     "discord.js": "^13.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.7.10",
+    "@types/ws": "^7.4.7",
+    "tsc-watch": "^4.5.0",
+    "typescript": "^4.4.2"
   }
 }
