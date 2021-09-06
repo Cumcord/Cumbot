@@ -2,9 +2,12 @@ import Discord, { Client } from 'discord.js';
 import fs from 'fs';
 import path from 'path';
 
-export default async function init(client: Client) {
-  client.localCommands = new Discord.Collection();
+import { clientLog } from '../util/logs';
+import config from '../config/bot'
 
+export const localCommands = new Discord.Collection<string, { name: any; description: any; options: any; execute: any; }>();  
+
+export default async function init(client: Client) {
   const commandFolder = path.join(__dirname, '../commands/');
   const commandFolders = fs.readdirSync(commandFolder);
 
@@ -14,13 +17,13 @@ export default async function init(client: Client) {
       .filter((file) => file.endsWith('.js'));
     for (const file of commandFiles) {
       const command = require(`${commandFolder}/${folder}/${file}`);
-      client.localCommands.set(command.name, command);
+      localCommands.set(command.name, command);
     }
   }
 
-  client.logs.clientLog(
+  clientLog(
     'Local commands: ' +
-      client.localCommands.map((command: { name: any }) => command.name).join(', '),
+      localCommands.map((command: { name: any }) => command.name).join(', '),
   );
 
   // Fetch our application, if not already fetched
@@ -31,17 +34,17 @@ export default async function init(client: Client) {
     | Discord.ApplicationCommandData[]
     | { name: any; description: any; options: any }[] = [];
 
-  client.localCommands.forEach((command: { name: any; description: any; options: any }) => {
+  for(const command of localCommands.values()) {
     commandsToRegister.push({
       name: command.name,
       description: command.description,
       options: command.options,
     });
-  });
+  };
 
   // Set commands in every server defined in config
   // TODO: Global commands
-  client.config.routes.servers.forEach((id) => {
+  for(const id of config.routes.servers) {
     return client.guilds.cache.get(id)!.commands.set(commandsToRegister);
-  });
+  };
 }

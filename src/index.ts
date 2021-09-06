@@ -9,18 +9,28 @@ import commandHandler from './handlers/command';
 import interactionHandler from './handlers/interaction';
 import messageHandler from './handlers/message';
 
+import config from './config/bot';
+import { clientLog } from './util/logs';
+
 // Make a client from the Discord constructor and define it
 const client = new Discord.Client({
   intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES],
 });
 
-// Add globals to the client
-
-// Config
-client.config = require('./config/bot');
-
-// Logging
-client.logs = require('./util/logs');
+function parseActivity(content: string): Discord.ActivityType | undefined {
+  switch(content) {
+    case 'WATCHING':
+    case 'PLAYING':
+    case 'STREAMING':
+    case 'LISTENING':    
+    case 'CUSTOM':
+    case 'COMPETING':
+      return content;
+    
+    default:
+      return undefined;
+  }
+}
 
 // Run actions when the client is ready
 client.once('ready', async () => {
@@ -29,11 +39,11 @@ client.once('ready', async () => {
   await messageHandler(client);
 
   // Set activity based on config file
-  client.user.setActivity(client.config.vanity.activity.value, {
-    type: client.config.vanity.activity.type,
+  client.user!.setActivity(config.vanity.activity.value, {
+    type: parseActivity(config.vanity.activity.type),
   });
 
-  client.logs.clientLog('Ready!');
+  clientLog('Ready!');
 });
 
 // Login with our token

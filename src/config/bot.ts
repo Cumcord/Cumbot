@@ -1,7 +1,7 @@
 // Import package.json to fetch useful info
 import meta from '../../package.json';
 
-module.exports = {
+const config = {
   vanity: {
     activity: {
       value: `over Cumcord | ${meta.version}`,
@@ -21,3 +21,4 @@ module.exports = {
   },
 };
 
+export default config;
