@@ -10,10 +10,11 @@ import fs from 'fs';
 export default async function init(client: Client) {
     const localCommands = new Collection();
 
-    const commandFolder = path.join(__dirname, '../commands/')
+    const commandFolder = path.join(__dirname, '../commands/');
     const commandFolders = fs.readdirSync(commandFolder);
 
     for (const folder of commandFolders) {
-        const commandFiles = fs.readdirSync(`${commandFolder}/${folder}`)
+        const commandFiles = fs.readdirSync(`${commandFolder}/${folder}`);
+        
     }
 }
