@@ -7,14 +7,13 @@ import { Client, Collection } from "discord.js";
 import path from 'path';
 import fs from 'fs';
 
-export default async function init(client: Client) {
-    const localCommands = new Collection();
+export const commands = new Collection();
 
+export default async function init(client: Client) {
     const commandFolder = path.join(__dirname, '../commands/');
     const commandFolders = fs.readdirSync(commandFolder);
 
     for (const folder of commandFolders) {
-        const commandFiles = fs.readdirSync(`${commandFolder}/${folder}`);
-        
+        const commandFiles = fs.readdirSync(`${commandFolder}/${folder}`).filter((file) => file.endsWith('.ts'))
     }
 }
