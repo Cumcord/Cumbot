@@ -9,7 +9,7 @@ import fs from 'fs';
 
 import { Command } from '../util/definitions'
 
-export const commands = new Collection();
+export const commands = new Collection<string, Command>();
 
 export default async function init(client: Client) {
     const commandFolder = path.join(__dirname, '../commands/');
@@ -19,7 +19,8 @@ export default async function init(client: Client) {
         const commandFiles = fs.readdirSync(`${commandFolder}/${folder}`).filter((file) => file.endsWith('.ts'))
         
         for (const file of commandFolder) {
-            
+            const command = require(`${commandFolder}/${folder}/${file}`);
+            commands.set(command.name, command);
         }
     }
 }
