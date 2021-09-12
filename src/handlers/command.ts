@@ -3,29 +3,45 @@
 
 //? This file handles reading and registering local command files
 
-import { Client, Collection } from "discord.js";
+import { Collection } from "discord.js";
 import path from 'path';
 import fs from 'fs';
+import { client } from '../index';
 
-import { Command } from '../util/definitions'
+import { Command, CommandOptions } from '../util/definitions'
+import general from "../config/general";
 
 export const commands = new Collection<string, Command>();
 
-export default async function init(client: Client) {
-    const commandFolder = path.join(__dirname, '..dist/', 'commands/');
+export default async function init() {
+    const commandFolder = path.join(__dirname, '../', 'commands/');
     const commandFolders = fs.readdirSync(commandFolder);
 
     for (const folder of commandFolders) {
-        const commandFiles = fs.readdirSync(`${commandFolder}/${folder}`).filter((file) => file.endsWith('.js'))
+        const commandFiles = fs.readdirSync(path.join(`${commandFolder}`, `${folder}`)).filter((file) => file.endsWith('.ts'));
         
         for (const file of commandFiles) {
-            const command = (await import(`${commandFolder}/${folder}/${file}`)).default as Command | undefined;
+            const command = (await import(path.join(`${commandFolder}`, `${folder}`, `${file}`))).default as Command;
             commands.set(command.name, command);
         }
     }
-    console.log(`Successfully fetched ${commands.values.length} commands.`)
+    console.log(`Successfully fetched ${Array.from(commands.values()).length} command(s).`);
 
-    if (!client.application?.owner) client.application.fetch();
+    if (!client.application?.owner) client.application?.fetch();
 
+    // This is a bad method of doing this.
+    // TODO: fix
+    let commandsToRegister:CommandOptions[] = [];
 
+    for(const command of commands.values()) {
+        commandsToRegister.push({
+          name: command.name,
+          description: command.description,
+          options: command.options,
+        });
+    };
+
+    for (const id of general.servers) {
+        return client.guilds.cache.get(id)?.commands.set(commandsToRegister);
+    }
 }

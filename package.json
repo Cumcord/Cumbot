@@ -10,9 +10,8 @@
   "scripts": {
     "clean": "rm -r dist",
     "build": "tsc",
-    "watch": "tsc-watch --onSuccess \"node . dev\"",
-    "dev": "NODE_ENV=dev ts-node .",
-    "start": "\"$NODE\" --inspect dist/index.js"
+    "cleanbuild": "rm -r dist; tsc",
+    "start": "ts-node src/index.ts"
   },
   "author": "Beef",
   "license": "MIT",
@@ -26,7 +25,6 @@
   "devDependencies": {
     "@types/node": "^16.7.13",
     "ts-node": "^10.2.1",
-    "tsc-watch": "^4.5.0",
     "typescript": "^4.4.2"
   }
 }
