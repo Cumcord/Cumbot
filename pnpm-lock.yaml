@@ -3,11 +3,13 @@ lockfileVersion: 5.3
 specifiers:
   '@types/node': ^16.7.13
   discord.js: ^13.1.0
+  node-fetch: '2'
   ts-node: ^10.2.1
   typescript: ^4.4.2
 
 dependencies:
   discord.js: 13.1.0
+  node-fetch: 2.6.2
 
 devDependencies:
   '@types/node': 16.7.13

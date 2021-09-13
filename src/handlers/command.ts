@@ -18,10 +18,10 @@ export default async function init() {
     const commandFolders = fs.readdirSync(commandFolder);
 
     for (const folder of commandFolders) {
-        const commandFiles = fs.readdirSync(path.join(`${commandFolder}`, `${folder}`)).filter((file) => file.endsWith('.ts'));
+        const commandFiles = fs.readdirSync(path.join(commandFolder, folder)).filter((file) => file.endsWith('.ts'));
         
         for (const file of commandFiles) {
-            const command = (await import(path.join(`${commandFolder}`, `${folder}`, `${file}`))).default as Command;
+            const command = (await import(path.join(commandFolder, folder, file))).default as Command;
             commands.set(command.name, command);
         }
     }
@@ -39,6 +39,7 @@ export default async function init() {
     };
 
     for (const id of general.servers) {
-        return client.guilds.cache.get(id)?.commands.set(commandsToRegister);
+        client.guilds.cache.get(id)?.commands.set(commandsToRegister);
     }
+    console.log('Command handler initialised.')
 }

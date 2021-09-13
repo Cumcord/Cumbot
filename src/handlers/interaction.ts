@@ -30,4 +30,5 @@ export default async function init() {
             await interaction.editReply({ content: `Interaction handler exception: \n\`\`\`${error}\`\`\`` })
         }
     });
+    console.log('Interaction handler initialised.')
 }

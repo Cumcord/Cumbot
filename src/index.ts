@@ -10,8 +10,9 @@ import interactionHandler from './handlers/interaction';
 import auth from './config/auth';
 
 client.on('ready', async () => {
-    commandHandler();
-    interactionHandler();
+    console.log('Client is ready, initialising handlers...')
+    await commandHandler();
+    await interactionHandler();
 });
 
 client.login(auth.token);
