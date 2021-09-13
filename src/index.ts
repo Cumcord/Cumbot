@@ -4,12 +4,14 @@
 import * as Discord from 'discord.js';
 export const client = new Discord.Client({ intents: [ Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES ] });
 
-import init from './handlers/command';
+import commandHandler from './handlers/command';
+import interactionHandler from './handlers/interaction';
 
 import auth from './config/auth';
 
 client.on('ready', async () => {
-    init();
+    commandHandler();
+    interactionHandler();
 });
 
 client.login(auth.token);

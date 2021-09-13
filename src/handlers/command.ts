@@ -3,13 +3,13 @@
 
 //? This file handles reading and registering local command files
 
-import { Collection } from "discord.js";
+import { ApplicationCommandData, Collection } from 'discord.js';
 import path from 'path';
 import fs from 'fs';
 import { client } from '../index';
 
-import { Command, CommandOptions } from '../util/definitions'
-import general from "../config/general";
+import { Command } from '../util/definitions'
+import general from '../config/general';
 
 export const commands = new Collection<string, Command>();
 
@@ -28,10 +28,7 @@ export default async function init() {
     console.log(`Successfully fetched ${Array.from(commands.values()).length} command(s).`);
 
     if (!client.application?.owner) client.application?.fetch();
-
-    // This is a bad method of doing this.
-    // TODO: fix
-    let commandsToRegister:CommandOptions[] = [];
+    let commandsToRegister:ApplicationCommandData[] = [];
 
     for(const command of commands.values()) {
         commandsToRegister.push({

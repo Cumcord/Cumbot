@@ -1,16 +1,17 @@
-import { Command } from "../../util/definitions";
-import { Interaction, Message } from "discord.js";
+import { Command } from '../../util/definitions';
+import { CommandInteraction, Message } from 'discord.js';
 
 export default new Command({
-    name: "ping",
-    description: "Simple test command.",
+    name: 'ping',
+    description: 'Simple test command.',
     options: [
         {
-            name: '',
+            name: 'bbbb',
+            description: 'eeeee',
             type: 'STRING'
         }
     ],
-    execute(interaction: Interaction): Promise<Message> {
-        return interaction.channel!.send("Pong!");
+    execute(interaction: CommandInteraction): any {
+        return interaction.editReply('Pong!');
     }
 });
