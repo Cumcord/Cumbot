@@ -14,6 +14,7 @@ import general from '../config/general';
 export const commands = new Collection<string, Command>();
 
 export default async function init() {
+    const before = Date.now();
     const commandFolder = path.join(__dirname, '../', 'commands/');
     const commandFolders = fs.readdirSync(commandFolder);
 
@@ -41,5 +42,5 @@ export default async function init() {
     for (const id of general.servers) {
         client.guilds.cache.get(id)?.commands.set(commandsToRegister);
     }
-    console.log('Command handler initialised.')
+    console.log(`Command handler initialised. Took ${Date.now() - before}ms.`)
 }

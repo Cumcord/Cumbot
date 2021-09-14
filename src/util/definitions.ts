@@ -1,3 +1,5 @@
+//* Cumbot
+//? TS definitions
 // Inspired by https://github.com/lexisother/LemuriaBot/blob/master/src/core/definitions.ts
 
 import { Interaction, Message, ApplicationCommandOptionData } from 'discord.js';

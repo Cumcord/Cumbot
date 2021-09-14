@@ -1,3 +1,6 @@
+//* Cumbot
+//? Interaction handler
+
 import { Interaction } from 'discord.js';
 
 import { client } from '../index';
@@ -8,6 +11,7 @@ import { commands } from './command'
 // TODO: Sane typing
 
 export default async function init() {
+    const before = Date.now();
     if (!client.application?.owner) client.application?.fetch();
 
     client.on('interactionCreate', async (interaction: Interaction) => {
@@ -30,5 +34,5 @@ export default async function init() {
             await interaction.editReply({ content: `Interaction handler exception: \n\`\`\`${error}\`\`\`` })
         }
     });
-    console.log('Interaction handler initialised.')
+    console.log(`Interaction handler initialised. Took ${Date.now() - before}ms.`)
 }

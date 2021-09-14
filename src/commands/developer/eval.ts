@@ -24,16 +24,17 @@ export default new Command({
 
         const code = interaction.options.get('code')!.value;
 
-        const before = Date.now()
-        const evaluated = eval(code!.toString());
+        const before = Date.now();
         const took = Date.now() - before;
+        let evaluated;
 
         try {
+            evaluated = eval(code!.toString());
             const embed = new MessageEmbed()
                 .setColor('WHITE')
-                .addField('Expression', `\`\`\`js\n${evaluated.toString()}\n\`\`\``)
+                .addField('Expression', `\`\`\`js\n${code?.toString()}\n\`\`\``)
+                .addField('Callback', `\`\`\`\njs${evaluated}\n\`\`\``,)
                 .addField('Time', `${took}ms`, true)
-                .addField('Callback', `\`${evaluated.toString()}\``, true)
                 .addField('TypeOf', typeof evaluated, true);
 
             return await interaction.editReply({ embeds: [embed] });
@@ -43,8 +44,8 @@ export default new Command({
                 .setColor('RED')
                 .setTitle(':x: Error')
                 .setDescription("An exception was thrown.")
-                .addField('Expression', `\`\`\`js\n${evaluated.toString()}\n\`\`\``)
-                .addField('Exception', `\`\`\`${error}\`\`\``, true);
+                .addField('Expression', `\`\`\`js\n${code?.toString()}\n\`\`\``)
+                .addField('Exception', `\`\`\`\n${error}\n\`\`\``, true);
 
             return await interaction.editReply({ embeds: [embed] });
         }
