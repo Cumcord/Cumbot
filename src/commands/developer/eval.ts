@@ -33,7 +33,7 @@ export default new Command({
             const embed = new MessageEmbed()
                 .setColor('WHITE')
                 .addField('Expression', `\`\`\`js\n${code?.toString()}\n\`\`\``)
-                .addField('Callback', `\`\`\`\njs${evaluated}\n\`\`\``,)
+                .addField('Callback', `\`\`\`js\n${evaluated}\n\`\`\``,)
                 .addField('Time', `${took}ms`, true)
                 .addField('TypeOf', typeof evaluated, true);
 

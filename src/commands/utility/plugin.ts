@@ -1,5 +1,5 @@
 import { Command } from '../../util/definitions';
-import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { CommandInteraction, MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
 const fetch = require('node-fetch');
 
 // Some of this code is inspired by Cumcord's plugin importer
@@ -44,8 +44,8 @@ export default new Command({
                 corsMode = true;
                 manifestData = await fetch(corsProxyUrl + manifestUrl);
             } catch(error) {
-                console.log(error)
-                return await interaction.editReply('Oops.')
+                console.log(error);
+                return await interaction.editReply('Oops.');
             }
         }
 
@@ -60,14 +60,24 @@ export default new Command({
             return await interaction.editReply('I couldn\'t parse the manifest for the specified plugin.');
         }
 
+        const button = new MessageButton()
+            .setLabel('Install in Cumcord')
+            .setStyle('LINK')
+            .setURL(baseUrlTrailing!)
+            .setDisabled();
+
+        const row = new MessageActionRow()
+            .addComponents([button]);
+
         const embed = new MessageEmbed()
             .setColor('WHITE')
             .setTitle(manifestJson.name)
+            .setURL(baseUrlTrailing!)
             .addField('Description', manifestJson.description)
             .addField('Author', manifestJson.author, true)
             .addField('License', manifestJson.license, true)
             .setFooter(`Hash: ${manifestJson.hash}`);
 
-        return await interaction.editReply({ embeds: [embed] });
+        return await interaction.editReply({ embeds: [embed], components: [row] });
     }
 })
