@@ -34,8 +34,9 @@ export default async function init() {
     for(const command of commands.values()) {
         commandsToRegister.push({
           name: command.name,
-          description: command.description,
+          description: command.description || '',
           options: command.options,
+          type: command.type || 'CHAT_INPUT',
         });
     };
 

@@ -15,7 +15,7 @@ export default async function init() {
     if (!client.application?.owner) client.application?.fetch();
 
     client.on('interactionCreate', async (interaction: Interaction) => {
-        if (!interaction.isCommand()) return;
+        if (!interaction.isCommand() && !interaction.isContextMenu()) return;
         if (!commands.has(interaction.commandName)) return;
 
         const command:Command | undefined = commands.get(interaction.commandName);
