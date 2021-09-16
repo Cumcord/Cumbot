@@ -2,7 +2,7 @@
 //? TS definitions
 // Inspired by https://github.com/lexisother/LemuriaBot/blob/master/src/core/definitions.ts
 
-import { Interaction, Message, ApplicationCommandOptionData, ApplicationCommandType } from 'discord.js';
+import { Interaction, Message, ApplicationCommandOptionData, ApplicationCommandType, ActivityOptions } from 'discord.js';
 
 export interface CommandOptions {
     name: string;
@@ -32,5 +32,23 @@ export class Command {
         this.type = commandOptions.type;
         this.ephemeral = commandOptions.ephemeral;
         this.execute = commandOptions.execute;
+    }
+}
+
+export interface ConfigOptions {
+    servers: string[];
+    users: string[];
+    activity: ActivityOptions;
+}
+
+export class Config {
+    public servers: string[];
+    public users: string[];
+    public activity: ActivityOptions;
+
+    public constructor(configOptions: ConfigOptions) {
+        this.servers = configOptions.servers;
+        this.users = configOptions.users;
+        this.activity = configOptions.activity;
     }
 }

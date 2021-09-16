@@ -13,9 +13,9 @@ export default new Command({
         const message = interaction.options.getMessage('message');
 
         const corsProxyUrl = "https://cors.bridged.cc/";
-        const urlTest = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g
+        const urlTest = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g;
 
-        const urls = message?.content.match(urlTest)
+        const urls = message?.content.match(urlTest);
         const embeds = [];
 
         if (!urls) return await interaction.editReply('Sorry, but I couldn\'t find any valid URLs in that message.');
@@ -24,7 +24,7 @@ export default new Command({
 
         for (const url of urls!) {
             const baseUrlTrailing = url.replace(/\/?$/, '/');
-            const manifestUrl = new URL("plugin.json", baseUrlTrailing);
+            const manifestUrl = new URL('plugin.json', baseUrlTrailing);
 
             let corsMode = false;
             let manifestData;
@@ -58,7 +58,7 @@ export default new Command({
             const embed = new MessageEmbed()
                 .setColor('WHITE')
                 .setTitle(manifestJson.name)
-                .setURL(url)
+                .setURL(baseUrlTrailing)
                 .addField('Description', manifestJson.description)
                 .addField('Author', manifestJson.author, true)
                 .addField('License', manifestJson.license, true)

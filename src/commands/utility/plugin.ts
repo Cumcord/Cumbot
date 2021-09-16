@@ -19,7 +19,7 @@ export default new Command({
     async execute(interaction: CommandInteraction): Promise<any> {
         const givenURL = interaction.options.get('url')!.value;
 
-        const urlTest = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
+        const urlTest = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
 
         if (urlTest.test(givenURL!.toString()) !== true) {
             return await interaction.editReply('That URL isn\'t valid!');
