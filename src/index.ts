@@ -2,7 +2,7 @@
 //? Cumcord's Discord bot - but this time actually sane!
 
 import * as Discord from 'discord.js';
-const browser = require('os').type() === 'android' ? "Discord Android" : "discord.js";
+const browser = process.platform === 'android' ? "Discord Android" : "discord.js";
 export const client = new Discord.Client({ intents: [ Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES ], ws: { properties: { $browser: browser } } });
 
 import commandHandler from './handlers/command';
