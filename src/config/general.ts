@@ -12,7 +12,7 @@ export default new Config({
 
     // Users with access to sensitive commands
     users: [
-        '257109471589957632',
+        '257109471589957632', '465702500146610176',
     ],
 
     activity: {

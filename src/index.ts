@@ -2,7 +2,8 @@
 //? Cumcord's Discord bot - but this time actually sane!
 
 import * as Discord from 'discord.js';
-export const client = new Discord.Client({ intents: [ Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES ] });
+const browser = require('os').type() === 'android' ? "Discord Android" : "discord.js";
+export const client = new Discord.Client({ intents: [ Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES ], ws: { properties: { $browser: browser } } });
 
 import commandHandler from './handlers/command';
 import interactionHandler from './handlers/interaction';
@@ -16,7 +17,7 @@ client.on('ready', async () => {
     await interactionHandler();
 
     console.log('Setting activity...');
-    client.user?.setActivity(general.activity)
+    client.user?.setActivity(general.activity);
 });
 
 client.login(auth.token);
