@@ -1,6 +1,7 @@
 import { Command } from '../../util/definitions';
 import { CommandInteraction, MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
 const fetch = require('node-fetch');
+import blacklist from '../../util/linkblacklist';
 
 // Some of this code is inspired by Cumcord's plugin importer
 
@@ -18,6 +19,12 @@ export default new Command({
     ],
     async execute(interaction: CommandInteraction): Promise<any> {
         const givenURL = interaction.options.get('url')!.value;
+
+        for (const item in blacklist) {
+            if (givenURL?.toString().includes(item)) {
+                return await interaction.editReply('no lol');
+            }
+        }
 
         const urlTest = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
 

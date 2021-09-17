@@ -27,12 +27,12 @@ export default async function init() {
         }
 
         try {
-            command!.execute(interaction)
+            await command!.execute(interaction)
         } catch(error) {
-            console.log('Interaction handler exception:', error)
+            console.log('Interaction handler exception:', error);
 
-            await interaction.editReply({ content: `Interaction handler exception: \n\`\`\`${error}\`\`\`` })
+            await interaction.editReply({ content: `Interaction handler exception: \n\`\`\`${error}\`\`\`` });
         }
     });
-    console.log(`Interaction handler initialised. Took ${Date.now() - before}ms.`)
+    console.log(`Interaction handler initialised. Took ${Date.now() - before}ms.`);
 }

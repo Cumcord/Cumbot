@@ -1,6 +1,7 @@
 import { Command } from '../../util/definitions';
 import { CommandInteraction, MessageEmbed } from 'discord.js';
 const fetch = require('node-fetch');
+import blacklist from '../../util/linkblacklist';
 
 // Some of this code is inspired by Cumcord's plugin importer
 
@@ -23,6 +24,11 @@ export default new Command({
         if (urls.length > 10) urls.length = 10;
 
         for (const url of urls!) {
+            for (const item in blacklist) {
+                if (url?.toString().includes(item)) {
+                    return await interaction.editReply('no lol');
+                }
+            }
             const baseUrlTrailing = url.replace(/\/?$/, '/');
             const manifestUrl = new URL('plugin.json', baseUrlTrailing);
 
