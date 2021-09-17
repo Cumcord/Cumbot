@@ -39,16 +39,19 @@ export interface ConfigOptions {
     servers: string[];
     users: string[];
     activity: ActivityOptions;
+    devActivity: ActivityOptions;
 }
 
 export class Config {
     public servers: string[];
     public users: string[];
     public activity: ActivityOptions;
+    public devActivity: ActivityOptions;
 
     public constructor(configOptions: ConfigOptions) {
         this.servers = configOptions.servers;
         this.users = configOptions.users;
         this.activity = configOptions.activity;
+        this.devActivity = configOptions.devActivity;
     }
 }

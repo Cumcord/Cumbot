@@ -18,5 +18,10 @@ export default new Config({
     activity: {
         name: `over the Cumcord server | ${meta.version}`,
         type: 'WATCHING',
-    }
+    },
+
+    devActivity: {
+        name: `Cumbot development | ${meta.version}`,
+        type: 'COMPETING',
+    },
 })
