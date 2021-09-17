@@ -19,7 +19,7 @@ export default async function init() {
     const commandFolders = fs.readdirSync(commandFolder);
 
     for (const folder of commandFolders) {
-        const commandFiles = fs.readdirSync(path.join(commandFolder, folder)).filter((file) => file.endsWith('.ts'));
+        const commandFiles = fs.readdirSync(path.join(commandFolder, folder)).filter((file) => file.endsWith('.js'));
         
         for (const file of commandFiles) {
             const command = (await import(path.join(commandFolder, folder, file))).default as Command;
