@@ -9,8 +9,8 @@
   },
   "scripts": {
     "clean": "rm -r dist",
-    "start": "rm -r dist; tsc; node dist/src/index.js",
-    "dev": "rm -r dist; tsc; node dist/src/index.js dev"
+    "start": "tsc && node dist/src/index.js",
+    "dev": "tsc && node dist/src/index.js dev"
   },
   "author": "Beef",
   "license": "MIT",

@@ -29,7 +29,7 @@ export default new Command({
         let evaluated;
 
         try {
-            evaluated = eval(code!.toString());
+            evaluated = await eval(code!.toString());
             const embed = new MessageEmbed()
                 .setColor('WHITE')
                 .addField('Expression', `\`\`\`js\n${code?.toString()}\n\`\`\``)
