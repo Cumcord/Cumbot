@@ -1,5 +1,5 @@
 import { Command } from '../../util/definitions';
-import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { CommandInteraction, MessageEmbed, MessageButton, MessageActionRow } from 'discord.js';
 const fetch = require('node-fetch');
 import blacklist from '../../util/linkblacklist';
 
@@ -18,10 +18,11 @@ export default new Command({
 
         const urls = message?.content.match(urlTest);
         const embeds = [];
+        const buttons = [];
 
         if (!urls) return await interaction.editReply('Sorry, but I couldn\'t find any valid URLs in that message.');
 
-        if (urls.length > 10) urls.length = 10;
+        if (urls.length > 5) urls.length = 5;
 
         for (const url of urls!) {
             for (const item in blacklist) {
@@ -61,20 +62,29 @@ export default new Command({
                 continue;
             }
 
+            const button = new MessageButton()
+                .setLabel(`Install ${manifestJson.name}`)
+                .setStyle('LINK')
+                .setURL(`https://send.cumcord.com/#${baseUrlTrailing}`)
+
             const embed = new MessageEmbed()
                 .setColor('WHITE')
                 .setTitle(manifestJson.name)
-                .setURL(baseUrlTrailing)
+                .setURL(`https://send.cumcord.com/#${baseUrlTrailing}`)
                 .addField('Description', manifestJson.description)
                 .addField('Author', manifestJson.author, true)
                 .addField('License', manifestJson.license, true)
                 .setFooter(`Hash: ${manifestJson.hash}`);
 
             embeds.push(embed);
+            buttons.push(button);
         }
 
         if (embeds.length === 0) return await interaction.editReply('The URLs found in that message don\'t look like Cumcord plugins.');
 
-        await interaction.editReply({ embeds: embeds });
+        const row = new MessageActionRow()
+            .addComponents(buttons);
+
+        await interaction.editReply({ embeds: embeds, components: [row], });
     }
 })

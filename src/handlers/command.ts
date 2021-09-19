@@ -23,6 +23,7 @@ export default async function init() {
         
         for (const file of commandFiles) {
             const command = (await import(path.join(commandFolder, folder, file))).default as Command;
+            if (!IS_DEV_MODE === true && command.devOnly === true) continue;
             if (IS_DEV_MODE === true) command.name = 'dev' + command.name;
             commands.set(command.name, command);
         }

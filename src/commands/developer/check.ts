@@ -9,6 +9,7 @@ export default new Command({
     name: 'check',
     description: 'VERY WIP! May not be implemented | Checks if Cumcord injects on a browser of choice.',
     category: 'developer',
+    devOnly: true,
     async execute(interaction: CommandInteraction): Promise<any> {
         if (!general.users.includes(interaction.user.id)) return await interaction.editReply({ content: 'Currently, this is permission-locked.' });
 

@@ -68,10 +68,9 @@ export default new Command({
         }
 
         const button = new MessageButton()
-            .setLabel('Install in Cumcord')
+            .setLabel(`Install ${manifestJson.name}`)
             .setStyle('LINK')
-            .setURL(baseUrlTrailing!)
-            .setDisabled();
+            .setURL(`https://send.cumcord.com/#${baseUrlTrailing!}`);
 
         const row = new MessageActionRow()
             .addComponents([button]);
@@ -79,7 +78,7 @@ export default new Command({
         const embed = new MessageEmbed()
             .setColor('WHITE')
             .setTitle(manifestJson.name)
-            .setURL(baseUrlTrailing!)
+            .setURL(`https://send.cumcord.com/#${baseUrlTrailing!}`)
             .addField('Description', manifestJson.description)
             .addField('Author', manifestJson.author, true)
             .addField('License', manifestJson.license, true)

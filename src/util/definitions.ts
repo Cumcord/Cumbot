@@ -11,6 +11,7 @@ export interface CommandOptions {
     options?: ApplicationCommandOptionData[];
     type?: ApplicationCommandType;
     ephemeral?: boolean;
+    devOnly?: boolean;
     execute(interaction: Interaction): any;
 }
 
@@ -21,6 +22,7 @@ export class Command {
     public options?: ApplicationCommandOptionData[];
     public type?: ApplicationCommandType;
     public ephemeral?: boolean;
+    public devOnly?: boolean;
 
     public execute: (interaction: Interaction) => any;
 
@@ -31,6 +33,7 @@ export class Command {
         this.options = commandOptions.options;
         this.type = commandOptions.type;
         this.ephemeral = commandOptions.ephemeral;
+        this.devOnly =  commandOptions.devOnly;
         this.execute = commandOptions.execute;
     }
 }
