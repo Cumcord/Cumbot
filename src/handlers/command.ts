@@ -8,7 +8,7 @@ import path from 'path';
 import fs from 'fs';
 import { client } from '../index';
 
-import { Command } from '../util/definitions'
+import { Command } from '../util/definitions';
 import general from '../config/general';
 
 export const commands = new Collection<string, Command>();

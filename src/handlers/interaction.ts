@@ -5,7 +5,7 @@ import { Interaction } from 'discord.js';
 
 import { client } from '../index';
 import { Command } from '../util/definitions';
-import { commands } from './command'
+import { commands } from './command';
 
 // TODO: Other types of interactions
 // TODO: Sane typing
