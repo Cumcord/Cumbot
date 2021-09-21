@@ -38,10 +38,19 @@ export class Command {
     }
 }
 
-export interface ButtonOptions {
+export interface ComponentOptions {
     name: string;
     id: string;
+}
 
+export class Component {
+    public name: string;
+    public id: string;
+
+    public constructor(componentoOptions: ComponentOptions) {
+        this.name = componentoOptions.name;
+        this.id = componentoOptions.id;
+    }
 }
 
 export interface ConfigOptions {
