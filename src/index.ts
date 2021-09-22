@@ -9,6 +9,7 @@ export const client = new Discord.Client({ intents: [ Discord.Intents.FLAGS.GUIL
 
 import commandHandler from './handlers/command';
 import interactionHandler from './handlers/interaction';
+import componentHandler from './handlers/component';
 
 import general from './config/general';
 import auth from './config/auth';
@@ -16,6 +17,7 @@ import auth from './config/auth';
 client.on('ready', async () => {
     console.log('Client is ready, initialising handlers...');
     await commandHandler();
+    await componentHandler();
     await interactionHandler();
 
     console.log('Setting activity...');

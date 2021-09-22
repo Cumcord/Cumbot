@@ -10,7 +10,7 @@ export default new Command({
         const button = new MessageButton()
             .setLabel('wewewewewe')
             .setStyle('PRIMARY')
-            .setCustomId('button');
+            .setCustomId('test');
 
         const select = new MessageSelectMenu()
             .addOptions([

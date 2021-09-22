@@ -6,7 +6,6 @@
 import { ApplicationCommandData, Collection, Interaction } from 'discord.js';
 import path from 'path';
 import fs from 'fs';
-import { client } from '../index';
 
 import { Component } from '../util/definitions';
 
@@ -22,21 +21,9 @@ export default async function init() {
         
         for (const file of componentFiles) {
             const component = (await import(path.join(componentFolder, folder, file))).default as Component;
-            components.set(component.name, component);
+            components.set(component.id, component);
         }
     }
-
-    client.on('interactionCreate', (interaction) => {
-        if (!interaction.isMessageComponent()) return;
-
-        // for (const component in components.values()) {
-        //     if (interaction.customId === component.id) {
-
-        //     }
-        // }
-
-        // TODO: Finish!
-    })
 
     console.log(`Component handler initialised. Took ${Date.now() - before}ms.`)
 }

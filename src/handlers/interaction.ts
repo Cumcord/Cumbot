@@ -4,8 +4,9 @@
 import { Interaction } from 'discord.js';
 
 import { client } from '../index';
-import { Command } from '../util/definitions';
+import { Command, Component } from '../util/definitions';
 import { commands } from './command';
+import { components } from './component';
 
 // TODO: Other types of interactions
 // TODO: Sane typing
@@ -32,6 +33,23 @@ export default async function init() {
             console.log('Interaction handler exception:', error);
 
             await interaction.editReply({ content: `Interaction handler exception: \n\`\`\`${error}\`\`\`` });
+        }
+    });
+    
+    client.on('interactionCreate', async (interaction) => {
+        if (!interaction.isMessageComponent()) return;
+        if (!components.has(interaction.customId)) return;
+
+        const component:Component | undefined = components.get(interaction.customId);
+
+        await interaction.deferReply();
+
+        try {
+            await component?.execute(interaction);
+        } catch(error) {
+            console.log('Component handler exception:', error);
+
+            await interaction.editReply({ content: `Component handler exception: \n\`\`\`${error}\`\`\`` });
         }
     });
     console.log(`Interaction handler initialised. Took ${Date.now() - before}ms.`);
