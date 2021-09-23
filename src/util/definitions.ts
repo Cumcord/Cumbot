@@ -2,7 +2,7 @@
 //? TS definitions
 // Inspired by https://github.com/lexisother/LemuriaBot/blob/master/src/core/definitions.ts
 
-import { Interaction, ApplicationCommandOptionData, ApplicationCommandType, ActivityOptions, MessageComponentInteraction, MessageComponentType } from 'discord.js';
+import { Interaction, ApplicationCommandOptionData, ApplicationCommandType, ActivityOptions, MessageComponentInteraction, ButtonInteraction, SelectMenuInteraction } from 'discord.js';
 
 export interface CommandOptions {
     name: string;
@@ -38,21 +38,39 @@ export class Command {
     }
 }
 
-export interface ComponentOptions {
+export interface ButtonOptions {
     id: string;
-    type: MessageComponentType;
-    execute: (interaction: MessageComponentInteraction) => any;
+    type: 'BUTTON' | 'SELECT_MENU';
+    execute: (interaction: ButtonInteraction) => any;
 }
 
-export class Component {
+export class Button {
     public id: string;
-    public type: MessageComponentType;
-    public execute: (interaction: MessageComponentInteraction) => any;
+    public type: 'BUTTON' | 'SELECT_MENU';
+    public execute: (interaction: ButtonInteraction) => any;
 
-    public constructor(componentOptions: ComponentOptions) {
-        this.id = componentOptions.id;
-        this.type = componentOptions.type;
-        this.execute = componentOptions.execute;
+    public constructor(buttonOptions: ButtonOptions) {
+        this.id = buttonOptions.id;
+        this.type = buttonOptions.type;
+        this.execute = buttonOptions.execute;
+    }
+}
+
+export interface SelectMenuOptions {
+    id: string;
+    type: 'BUTTON' | 'SELECT_MENU';
+    execute: (interaction: SelectMenuInteraction) => any;
+}
+
+export class SelectMenu {
+    public id: string;
+    public type: 'BUTTON' | 'SELECT_MENU';
+    public execute: (interaction: SelectMenuInteraction) => any;
+
+    public constructor(selectMenuOptions: SelectMenuOptions) {
+        this.id = selectMenuOptions.id;
+        this.type = selectMenuOptions.type;
+        this.execute = selectMenuOptions.execute;
     }
 }
 

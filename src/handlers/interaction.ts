@@ -1,12 +1,12 @@
 //* Cumbot
 //? Interaction handler
 
-import { Interaction } from 'discord.js';
+import { ButtonInteraction, Interaction } from 'discord.js';
 
 import { client } from '../index';
-import { Command, Component } from '../util/definitions';
+import { Command } from '../util/definitions';
 import { commands } from './command';
-import { components } from './component';
+import { buttons, selects } from './component';
 
 // TODO: Other types of interactions
 // TODO: Sane typing
@@ -30,9 +30,9 @@ export default async function init() {
         try {
             await command!.execute(interaction)
         } catch(error) {
-            console.log('Interaction handler exception:', error);
+            console.log('CommandInteraction handler exception:', error);
 
-            await interaction.editReply({ content: `Interaction handler exception: \n\`\`\`${error}\`\`\`` });
+            await interaction.editReply({ content: `CommandInteraction handler exception: \n\`\`\`${error}\`\`\`` });
         }
     });
     
@@ -42,15 +42,19 @@ export default async function init() {
 
         const component:Component | undefined = components.get(interaction.customId);
 
+        if (component?.type === 'BUTTON' && !interaction.isButton()) return;
+        if (component?.type === 'SELECT_MENU') interaction.isSelectMenu();
+
         await interaction.deferReply();
 
         try {
             await component?.execute(interaction);
         } catch(error) {
-            console.log('Component handler exception:', error);
+            console.log('MessageComponentInteraction handler exception:', error);
 
-            await interaction.editReply({ content: `Component handler exception: \n\`\`\`${error}\`\`\`` });
+            await interaction.editReply({ content: `MessageComponentInteraction handler exception: \n\`\`\`${error}\`\`\`` });
         }
     });
+
     console.log(`Interaction handler initialised. Took ${Date.now() - before}ms.`);
 }
