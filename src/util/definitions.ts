@@ -40,36 +40,36 @@ export class Command {
 
 export interface ButtonOptions {
     id: string;
-    type: 'BUTTON' | 'SELECT_MENU';
+    ephemeral?: boolean;
     execute: (interaction: ButtonInteraction) => any;
 }
 
 export class Button {
     public id: string;
-    public type: 'BUTTON' | 'SELECT_MENU';
+    ephemeral?: boolean;
     public execute: (interaction: ButtonInteraction) => any;
 
     public constructor(buttonOptions: ButtonOptions) {
         this.id = buttonOptions.id;
-        this.type = buttonOptions.type;
+        this.ephemeral = buttonOptions.ephemeral;
         this.execute = buttonOptions.execute;
     }
 }
 
 export interface SelectMenuOptions {
     id: string;
-    type: 'BUTTON' | 'SELECT_MENU';
+    ephemeral?: boolean;
     execute: (interaction: SelectMenuInteraction) => any;
 }
 
 export class SelectMenu {
     public id: string;
-    public type: 'BUTTON' | 'SELECT_MENU';
+    ephemeral?: boolean;
     public execute: (interaction: SelectMenuInteraction) => any;
 
     public constructor(selectMenuOptions: SelectMenuOptions) {
         this.id = selectMenuOptions.id;
-        this.type = selectMenuOptions.type;
+        this.ephemeral = selectMenuOptions.ephemeral;
         this.execute = selectMenuOptions.execute;
     }
 }

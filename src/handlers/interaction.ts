@@ -4,12 +4,9 @@
 import { ButtonInteraction, Interaction } from 'discord.js';
 
 import { client } from '../index';
-import { Command } from '../util/definitions';
+import { Button, SelectMenu, Command } from '../util/definitions';
 import { commands } from './command';
 import { buttons, selects } from './component';
-
-// TODO: Other types of interactions
-// TODO: Sane typing
 
 export default async function init() {
     const before = Date.now();
@@ -37,22 +34,44 @@ export default async function init() {
     });
     
     client.on('interactionCreate', async (interaction) => {
-        if (!interaction.isMessageComponent()) return;
-        if (!components.has(interaction.customId)) return;
+        if (!interaction.isButton()) return;
+        if (!buttons.has(interaction.customId)) return;
 
-        const component:Component | undefined = components.get(interaction.customId);
+        const button:Button | undefined = buttons.get(interaction.customId);
 
-        if (component?.type === 'BUTTON' && !interaction.isButton()) return;
-        if (component?.type === 'SELECT_MENU') interaction.isSelectMenu();
-
-        await interaction.deferReply();
+        if (button!.ephemeral) {
+            await interaction.deferReply({ ephemeral: true });
+        } else {
+            await interaction.deferReply();
+        }
 
         try {
-            await component?.execute(interaction);
+            await button?.execute(interaction);
         } catch(error) {
-            console.log('MessageComponentInteraction handler exception:', error);
+            console.log('ButtonInteraction handler exception:', error);
 
-            await interaction.editReply({ content: `MessageComponentInteraction handler exception: \n\`\`\`${error}\`\`\`` });
+            await interaction.editReply({ content: `ButtonInteraction handler exception: \n\`\`\`${error}\`\`\`` });
+        }
+    });
+
+    client.on('interactionCreate', async (interaction) => {
+        if (!interaction.isSelectMenu()) return;
+        if (!selects.has(interaction.customId)) return;
+    
+        const select:SelectMenu | undefined = selects.get(interaction.customId);
+    
+        if (select!.ephemeral) {
+            await interaction.deferReply({ ephemeral: true });
+        } else {
+            await interaction.deferReply();
+        }
+    
+        try {
+            await select?.execute(interaction);
+        } catch(error) {
+            console.log('SelectMenuInteraction handler exception:', error);
+    
+            await interaction.editReply({ content: `SelectMenuInteraction handler exception: \n\`\`\`${error}\`\`\`` });
         }
     });
 

@@ -1,7 +1,7 @@
 //* Cumbot
-//? Local command handler
+//? Local component handler
 
-//? This file handles reading and registering local command files
+//? This file handles reading local component files
 
 import { Collection } from 'discord.js';
 import path from 'path';
@@ -42,6 +42,9 @@ export default async function init() {
             }
         }
     }
+
+    registerButtons();
+    registerSelects();
 
     console.log(`Component handler initialised. Took ${Date.now() - before}ms.`)
 }
