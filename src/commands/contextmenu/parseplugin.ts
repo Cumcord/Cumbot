@@ -33,22 +33,14 @@ export default new Command({
             const baseUrlTrailing = url.replace(/\/?$/, '/');
             const manifestUrl = new URL('plugin.json', baseUrlTrailing);
 
-            let corsMode = false;
             let manifestData;
             let manifestJson;
 
             try {
-                // Attempt to download the manifest
-                manifestData = await fetch(manifestUrl);
-            } catch {
-                try {
-                    // If it fails, enable cors mode and attempt to download the manifest through the proxy
-                    corsMode = true;
-                    manifestData = await fetch(corsProxyUrl + manifestUrl);
-                } catch(error) {
-                    console.log(error);
-                    return await interaction.editReply('Oops.');
-                }
+                manifestData = await fetch(corsProxyUrl + manifestUrl);
+            } catch(error) {
+                console.log(error);
+                return await interaction.editReply('Oops.');
             }
     
             if (manifestData.status != 200) {

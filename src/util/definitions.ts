@@ -2,7 +2,7 @@
 //? TS definitions
 // Inspired by https://github.com/lexisother/LemuriaBot/blob/master/src/core/definitions.ts
 
-import { Interaction, ApplicationCommandOptionData, ApplicationCommandType, ActivityOptions } from 'discord.js';
+import { Interaction, ApplicationCommandOptionData, ApplicationCommandType, ActivityOptions, MessageComponentInteraction, ButtonInteraction, SelectMenuInteraction } from 'discord.js';
 
 export interface CommandOptions {
     name: string;
@@ -39,9 +39,39 @@ export class Command {
 }
 
 export interface ButtonOptions {
-    name: string;
     id: string;
+    ephemeral?: boolean;
+    execute: (interaction: ButtonInteraction) => any;
+}
 
+export class Button {
+    public id: string;
+    ephemeral?: boolean;
+    public execute: (interaction: ButtonInteraction) => any;
+
+    public constructor(buttonOptions: ButtonOptions) {
+        this.id = buttonOptions.id;
+        this.ephemeral = buttonOptions.ephemeral;
+        this.execute = buttonOptions.execute;
+    }
+}
+
+export interface SelectMenuOptions {
+    id: string;
+    ephemeral?: boolean;
+    execute: (interaction: SelectMenuInteraction) => any;
+}
+
+export class SelectMenu {
+    public id: string;
+    ephemeral?: boolean;
+    public execute: (interaction: SelectMenuInteraction) => any;
+
+    public constructor(selectMenuOptions: SelectMenuOptions) {
+        this.id = selectMenuOptions.id;
+        this.ephemeral = selectMenuOptions.ephemeral;
+        this.execute = selectMenuOptions.execute;
+    }
 }
 
 export interface ConfigOptions {
