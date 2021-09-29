@@ -32,6 +32,8 @@ export default new Command({
             return await interaction.editReply('That URL isn\'t valid!');
         }
 
+
+        const noStore = { cache: "no-store" };
         const corsProxyUrl = "https://cors.bridged.cc/";
 
         const baseUrlTrailing = givenURL?.toString().replace(/\/?$/, '/');
@@ -42,11 +44,13 @@ export default new Command({
         let manifestJson;
 
         try {
-            manifestData = await fetch(corsProxyUrl + manifestUrl);
+            manifestData = await fetch(manifestUrl);
         } catch(error) {
             console.log(error);
             return await interaction.editReply('Oops.');
         }
+
+        console.log(manifestData)
 
         if (manifestData.status != 200) {
             return await interaction.editReply('I couldn\'t fetch the manifest for the specified plugin.');

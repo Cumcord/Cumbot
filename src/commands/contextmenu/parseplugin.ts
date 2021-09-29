@@ -37,7 +37,7 @@ export default new Command({
             let manifestJson;
 
             try {
-                manifestData = await fetch(corsProxyUrl + manifestUrl);
+                manifestData = await fetch(manifestUrl);
             } catch(error) {
                 console.log(error);
                 return await interaction.editReply('Oops.');
